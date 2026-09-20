@@ -1,1 +1,347 @@
-HOTICE WEBSITE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HOTICE</title>
+  <link rel="icon" href="./figs/logo.png" type="image/png">
+  <meta name="description" content="HOTICE: Whole-Body Humanoid Object Transportation in Cluttered Environments">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="toc">
+    <h3>Content</h3>
+    <hr>
+    <ul>
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#simulation-results">Simulation Results</a></li>
+      <li><a href="#real-world-results">Real-World Results</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="hero-text">HOTICE</div>
+    <div class="sub-hero-text">Whole-body humanoid object transportation in cluttered environments</div>
+
+    <!-- Anonymized for review. Restore the real author list and affiliations before de-anonymizing. -->
+    <div class="authors">
+      Anonymous Authors
+    </div>
+    <!-- End Authors -->
+
+    <video id="teaser-video" src="./figs/teaser.mp4" width="100%" height="100%" controls muted playsinline autoplay></video>
+
+    <div class="tagline" id="abstract">Abstract.</div>
+
+    <div class="section">
+      Object transportation is a fundamental capability for humanoid robots operating in real-world, human-centric environments, yet existing methods struggle when clutter constrains free space around both the robot and its carried payload.
+      We present <span style="font-variant: small-caps;">Hotice</span>, a whole-body humanoid learning framework for transporting objects through such cluttered environments.
+      First, we introduce Humanoid-Object Decoupled Potential Fields, which jointly encode collision-avoidance guidance for the robot and the carried object, enabling coordinated, obstacle-aware motion for both.
+      Second, to address the large action space inherent to whole-body loco-manipulation, we design a dual-agent reinforcement learning architecture that decouples upper- and lower-body control while preserving whole-body coordination via shared state observations and rewards.
+      To train a policy that generalizes across diverse cluttered scenes, we further employ a specialist-to-generalist distillation strategy, in which privileged teacher policies are distilled into a single deployable student policy.
+      We evaluate <span style="font-variant: small-caps;">Hotice</span> in MuJoCo simulation and on a real Unitree G1 humanoid, demonstrating effective and robust object transportation across cluttered scenarios for objects of varying shapes.
+      Our results show that <span style="font-variant: small-caps;">Hotice</span> reliably coordinates whole-body motion and object-aware collision avoidance, generalizing effectively to previously unseen cluttered environments while achieving strong performance in sim2real deployment.
+    </div>
+
+    <div class="tagline" id="method">Method.</div>
+
+    <a id="method-img" href="figs/method.jpeg" download="method.jpeg">
+      <img src="figs/method.jpeg" alt="HOTICE method overview">
+    </a>
+    <p class="figure-caption method-caption">
+      <span style="font-variant: small-caps;">Hotice</span> is composed of three main components.
+      <b>Humanoid-Object Decoupled Potential Fields</b> <i>(top left)</i>: a Standard Guidance Field guides the robot's head, pelvis, and feet, while an Object-Centric Guidance Field guides the carried object and the robot's hands.
+      <b>Dual-Agent Learning Architecture</b> <i>(top right)</i>: the whole-body control is split between an upper-body actor-critic and a lower-body actor-critic, each with its own body-specific reward set, but remain coordinated via unified state observations and shared whole-body rewards.
+      <b>Specialist-to-Generalist Training</b> <i>(bottom)</i>: privileged teacher policies are trained across diverse procedurally generated and realistic scenes, then distilled via DAgger and RL fine-tuning into a single generalist student policy that is deployed on the real Unitree G1 humanoid robot.
+    </p>
+
+    <div class="tagline" id="simulation-results">Simulation Results.</div>
+
+    <!-- Video Gallery Section - SIM ROLLOUTS -->
+    <div class="video-gallery-section" id="simGallerySection">
+      <div class="video-gallery-container">
+        <div class="video-gallery" id="videoGallerySim">
+          <video class="gallery-video" src="./figs/rollout_rand1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand2.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand3.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand4.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand5.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand6.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand7.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_rand8.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_typi1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_typi2.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_typi3.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_typi4.mp4" autoplay muted playsinline loop></video>
+        </div>
+      </div>
+      <div class="gallery-caption-container">
+          <div class="gallery-nav-controls">
+              <button class="gallery-nav left" id="scrollLeftBtnSim">&lt;</button>
+              <button class="gallery-nav right" id="scrollRightBtnSim">&gt;</button>
+          </div>
+          <p class="figure-caption gallery-caption">
+              <span style="font-variant: small-caps;">Hotice</span> shows strong effectiveness and generalizability to diverse and challenging obstacle settings in MuJoCo.
+          </p>
+      </div>
+    </div>
+    <!-- End Video Gallery Section -->
+
+    <!-- Video Gallery Section - REALISTIC INDOOR SCENES -->
+    <div class="video-gallery-section" id="simRealGallerySection">
+      <div class="video-gallery-container">
+        <div class="video-gallery" id="videoGallerySimReal">
+          <video class="gallery-video" src="./figs/rollout_real1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real2.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real3.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real4.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real5.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real6.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real8.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real9.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real10.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real11.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real12.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_real13.mp4" autoplay muted playsinline loop></video>
+        </div>
+      </div>
+      <div class="gallery-caption-container">
+          <div class="gallery-nav-controls">
+              <button class="gallery-nav left" id="scrollLeftBtnSimReal">&lt;</button>
+              <button class="gallery-nav right" id="scrollRightBtnSimReal">&gt;</button>
+          </div>
+          <p class="figure-caption gallery-caption">
+              Our method effectively handles a wide range of realistic simulated indoor environments.
+          </p>
+      </div>
+    </div>
+    <!-- End Video Gallery Section -->
+
+    <!-- Video Gallery Section - OTHER OBJECT SHAPES -->
+    <div class="video-gallery-section" id="simShapesGallerySection">
+      <div class="video-gallery-container">
+        <div class="video-gallery" id="videoGallerySimShapes">
+          <video class="gallery-video" src="./figs/rollout_sphere_typi1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_sphere_real1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_sphere_typi3.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_sphere_real2.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_cylinder_typi1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_cylinder_real1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_cylinder_typi2.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/rollout_cylinder_real2.mp4" autoplay muted playsinline loop></video>
+        </div>
+      </div>
+      <div class="gallery-caption-container">
+          <div class="gallery-nav-controls">
+              <button class="gallery-nav left" id="scrollLeftBtnSimShapes">&lt;</button>
+              <button class="gallery-nav right" id="scrollRightBtnSimShapes">&gt;</button>
+          </div>
+          <p class="figure-caption gallery-caption">
+              <span style="font-variant: small-caps;">Hotice</span> is also highly adaptable to other object shapes, like spheres and cylinders.
+          </p>
+      </div>
+    </div>
+    <!-- End Video Gallery Section -->
+
+    <div class="tagline" id="real-world-results">Real-World Results.</div>
+
+    <!-- Video Gallery Section - REAL-WORLD OBSTACLE TYPES -->
+    <div class="video-gallery-section" id="realGallerySection">
+      <div class="video-gallery-container">
+        <div class="video-gallery" id="videoGalleryReal">
+          <video class="gallery-video" src="./figs/real1.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real2.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real3.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real4.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real5.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real6.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real7.mp4" autoplay muted playsinline loop></video>
+          <video class="gallery-video" src="./figs/real8.mp4" autoplay muted playsinline loop></video>
+        </div>
+      </div>
+      <div class="gallery-caption-container">
+          <div class="gallery-nav-controls">
+              <button class="gallery-nav left" id="scrollLeftBtnReal">&lt;</button>
+              <button class="gallery-nav right" id="scrollRightBtnReal">&gt;</button>
+          </div>
+          <p class="figure-caption gallery-caption">
+              <span style="font-variant: small-caps;">Hotice</span> achieves strong performance in real-world deployment across representative obstacle types (side, overhead, and ground).
+          </p>
+      </div>
+    </div>
+    <!-- End Video Gallery Section -->
+
+    <video class="feature-video" src="./figs/real_complete.mp4" autoplay muted loop playsinline></video>
+    <p class="figure-caption">
+      With a pickup policy, <span style="font-variant: small-caps;">Hotice</span> enables a complete pipeline for picking up the box from a support surface and transporting it to a human.
+    </p>
+
+  </div> <!-- End of main-content div -->
+
+  <div class="footer">
+    © 2026 <span style="font-variant: small-caps;">Hotice</span> authors. Webpage template borrowed from <a href="https://videomimic.net/" target="_blank">VideoMimic</a>.
+  </div>
+
+  <!-- Teaser Video: loop with a delay -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('teaser-video');
+    const loopDelay = 3000;    // 3 seconds delay before looping
+    let loopTimeout;
+
+    if (!video) {
+      console.error('Video element with ID "teaser-video" not found.');
+      return;
+    }
+
+    video.muted = true;
+
+    video.addEventListener('ended', function() {
+      clearTimeout(loopTimeout);
+      loopTimeout = setTimeout(function() {
+        video.currentTime = 0;
+        video.play().catch(function(error) {
+          console.log('Delayed loop play prevented for teaser video:', error);
+        });
+      }, loopDelay);
+    });
+
+    // Clear the pending loop if the viewer pauses manually
+    video.addEventListener('pause', function() {
+      if (!video.ended && video.currentTime > 0) {
+        clearTimeout(loopTimeout);
+      }
+    });
+  });
+  </script>
+
+  <!-- Video Gallery Navigation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const galleries = [
+        {
+          sectionId: 'simGallerySection',
+          galleryInnerId: 'videoGallerySim',
+          scrollLeftBtnId: 'scrollLeftBtnSim',
+          scrollRightBtnId: 'scrollRightBtnSim'
+        },
+        {
+          sectionId: 'simRealGallerySection',
+          galleryInnerId: 'videoGallerySimReal',
+          scrollLeftBtnId: 'scrollLeftBtnSimReal',
+          scrollRightBtnId: 'scrollRightBtnSimReal'
+        },
+        {
+          sectionId: 'simShapesGallerySection',
+          galleryInnerId: 'videoGallerySimShapes',
+          scrollLeftBtnId: 'scrollLeftBtnSimShapes',
+          scrollRightBtnId: 'scrollRightBtnSimShapes'
+        },
+        {
+          sectionId: 'realGallerySection',
+          galleryInnerId: 'videoGalleryReal',
+          scrollLeftBtnId: 'scrollLeftBtnReal',
+          scrollRightBtnId: 'scrollRightBtnReal'
+        }
+      ];
+
+      galleries.forEach(galleryConfig => {
+        const gallerySection = document.getElementById(galleryConfig.sectionId);
+        if (!gallerySection) {
+          console.error(`Gallery section with ID ${galleryConfig.sectionId} not found.`);
+          return;
+        }
+
+        const galleryContainer = gallerySection.querySelector('.video-gallery-container');
+        const galleryInner = document.getElementById(galleryConfig.galleryInnerId);
+        const scrollLeftBtn = document.getElementById(galleryConfig.scrollLeftBtnId);
+        const scrollRightBtn = document.getElementById(galleryConfig.scrollRightBtnId);
+
+        if (galleryContainer && galleryInner && scrollLeftBtn && scrollRightBtn) {
+          // --- Endless gallery ---------------------------------------------
+          // The strip always scrolls in the direction of the arrow. When it
+          // runs out of room, a video is moved from one end of the strip to
+          // the other and the scroll position is corrected by that video's
+          // width in the same frame, so nothing appears to move. The videos
+          // therefore repeat forever without any of them being duplicated.
+
+          const gap = parseFloat(getComputedStyle(galleryInner).gap) || 0;
+          const maxScroll = () => galleryContainer.scrollWidth - galleryContainer.clientWidth;
+          const widthOf = video => ((video && video.offsetWidth) || 300) + gap;
+
+          // Scroll changes made in here happen instantly, however the
+          // stylesheet's scroll-behavior is set.
+          const instantly = change => {
+            const previous = galleryContainer.style.scrollBehavior;
+            galleryContainer.style.scrollBehavior = 'auto';
+            change();
+            galleryContainer.style.scrollBehavior = previous;
+          };
+
+          // Send the leftmost video round to the right-hand end, keeping the
+          // view still: the strip shifts left by its width, so does the scroll.
+          const recycleForward = () => {
+            const first = galleryInner.firstElementChild;
+            const width = widthOf(first);
+            instantly(() => {
+              galleryInner.appendChild(first);
+              galleryContainer.scrollLeft -= width;
+            });
+          };
+
+          // The mirror image: rightmost video round to the left-hand end.
+          const recycleBackward = () => {
+            const last = galleryInner.lastElementChild;
+            const width = widthOf(last);
+            instantly(() => {
+              galleryInner.insertBefore(last, galleryInner.firstElementChild);
+              galleryContainer.scrollLeft += width;
+            });
+          };
+
+          const step = direction => {
+            const count = galleryInner.children.length;
+            if (count < 2 || maxScroll() <= 0) return;
+
+            // Settle any animation still running so the sums below are exact
+            instantly(() => { galleryContainer.scrollLeft = galleryContainer.scrollLeft; });
+
+            const distance = widthOf(galleryInner.firstElementChild);
+            let guard = 0;
+            if (direction > 0) {
+              while (galleryContainer.scrollLeft + distance > maxScroll() + 1 && guard++ < count) {
+                recycleForward();
+              }
+            } else {
+              while (galleryContainer.scrollLeft - distance < 0 && guard++ < count) {
+                recycleBackward();
+              }
+            }
+            galleryContainer.scrollBy({ left: direction * distance, behavior: 'smooth' });
+          };
+
+          scrollLeftBtn.addEventListener('click', () => step(-1));
+          scrollRightBtn.addEventListener('click', () => step(1));
+        } else {
+          console.error(`Gallery elements not found for navigation setup in section ${galleryConfig.sectionId}.`);
+        }
+      });
+    });
+  </script>
+
+  <!-- Figure links are download targets only; don't navigate on click -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      ['method-img'].forEach(id => {
+        const linkElement = document.getElementById(id);
+        if (linkElement) {
+          linkElement.addEventListener('click', function(event) {
+            event.preventDefault();
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

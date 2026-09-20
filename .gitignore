@@ -1,0 +1,7 @@
+.DS_Store
+
+# Video masters: large, and superseded by the encoded .mp4 beside them
+figs/*.mov
+
+# Clone of the page template this layout started from, kept locally for reference
+videomimic-1.github.io/
