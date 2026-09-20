@@ -291,7 +291,7 @@ a#method-img img {
 /* A single full-width result video, e.g. the complete pick-up-and-deliver run */
 .feature-video {
   display: block;
-  width: 65%;
+  width: 55%;
   height: auto;
   margin: 20px auto 0 auto; /* Narrower than the text column, and centred */
   border-radius: 15px;
